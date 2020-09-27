@@ -6,7 +6,7 @@ import com.crowdar.examples.pages.ShopHomePage;
 import io.cucumber.java.en.*;
 import io.cucumber.java.sl.In;
 
-public class ShopSteps extends PageSteps {
+public class LoginSteps extends PageSteps {
 
 
     @Given("El cliente se encuentra en la página de Inicio")

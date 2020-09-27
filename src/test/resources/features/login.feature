@@ -1,25 +1,14 @@
-Feature: As a potential client i need to search in google to find a web site
+Feature: Como usuario quiero ingresar mis credenciales para poder acceder al sitio de compras
 
-  @Smoke
-  Scenario: The client search by "crowdar"
-    Given The client is in google page
-    When The client search for word crowdar
-    Then The client verify that results are shown properly
+  @Login
+  Scenario: El cliente inicia sesión en el sitio de compras
+    Given El cliente se encuentra en la página de Inicio
+    When El cliente hace click en el botón Sign In
+    Then Se redirecciona a la página de Login
 
-  @Smoke
-  Scenario: The client search by "automation"
-    Given The client is in google page
-    When The client search for word automation
-    Then The client verify that results are shown properly
 
-  @Smoke
-  Scenario: The client search by "docker"
-    Given The client is in google page
-    When The client search for word docker
-    Then The client verify that results are shown properly
-	
-  @Smoke
-  Scenario: The client search by "vagrant"
-    Given The client is in google page
-    When The client search for word vagrant
-    Then The client verify that results are shown properly
+    When El cliente ingresa su email: sidanusp@gmail.com
+    And  El cliente ingresa su contraseña: 24680
+    And  El cliente hace click en el botón Sign In
+    Then Se redirecciona a la página de My Account
+
