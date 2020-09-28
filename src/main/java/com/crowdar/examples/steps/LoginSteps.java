@@ -37,4 +37,8 @@ public class LoginSteps extends PageSteps {
     }
 
 
+    @Then("Se muestra el <mensaje> (.*)")
+    public void seMuestraElMensaje(String message) {
+        Injector._page(ShopHomePage.class).verifyMessage(message);
+    }
 }

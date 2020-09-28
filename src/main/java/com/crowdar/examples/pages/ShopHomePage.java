@@ -20,14 +20,19 @@ public class ShopHomePage extends PageBaseShop {
     private final String TITLE_H1_CSS_SELECTOR ="#center_column > h1";
     private final String SLIDER_INDEX_ID = "slider_row";
     private final String FORM_LOGIN_ID = "login_form";
+    private final String TEXT_LI_CSS_SELECTOR = "#center_column > div.alert.alert-danger > ol > li";
 
     public void go() {
         navigateToCompleteURL();
     }
 
+    public void verifyIndex(){
+        Assert.assertTrue(isElementPresentAndDisplayed(By.id(SLIDER_INDEX_ID)),  "El elemento no es visible");
+    }
+
     public void clickButton(String button){
         switch (button){
-            case "Sign in":
+            case "Sign In":
                 loginButtonClick();
                 break;
         }
@@ -74,9 +79,10 @@ public class ShopHomePage extends PageBaseShop {
         Assert.assertEquals(getWebElement(By.cssSelector(TITLE_H1_CSS_SELECTOR)).getText(),"MY ACCOUNT");;
     }
 
-    public void verifyIndex(){
-        Assert.assertTrue(isElementPresentAndDisplayed(By.id(SLIDER_INDEX_ID)),  "El elemento no es visible");
+    public void verifyMessage(String message){
+        Assert.assertEquals(getWebElement(By.cssSelector(TEXT_LI_CSS_SELECTOR)).getText(), "El mensaje no es visible" );
     }
+
 
 
 
