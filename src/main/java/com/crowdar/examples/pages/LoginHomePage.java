@@ -4,11 +4,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 
-public class LoginHomePage extends PageBaseShop {
+public class ShopHomePage extends PageBaseShop {
 
 
 
-    public LoginHomePage(RemoteWebDriver driver) {
+    public ShopHomePage(RemoteWebDriver driver) {
         super(driver);
         this.url = "";
     }
