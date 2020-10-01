@@ -13,20 +13,23 @@ Feature: Como usuario quiero ingresar mis credenciales para poder acceder al sit
     Then Se redirecciona a la página de My Account
 
   @Login
-  Scenario: El cliente intenta iniciar sesión en el sitio de compras
+  Scenario Outline: El cliente intenta iniciar sesión en el sitio de compras
     Given El cliente se encuentra en la página de Inicio
     When El cliente hace click en el botón Sign In
     Then Se redirecciona a la página de Login
 
 
-    When El cliente ingresa su <email>
-    And  El cliente ingresa su <contraseña>
+    When El cliente ingresa su email: '<email>'
+    And  El cliente ingresa su contraseña: '<contraseña>'
     And  El cliente hace click en el botón Sign In
-    Then Se muestra el <mensaje>
+    Then Se muestra el mensaje '<message>'
 
     Examples:
-    | email             | contraseña | mensaje
-    |                   |123333      |An email address required.
-    |cinthia@hotmail.com|            |Password is required.
-    |sidan@gmail.com    |12345678    |Authentication failed
+      | email             | contraseña | message
+      | sidan@gmail.com   | 1222322    | Authentication failed
+      |                   | 22222222   | An email address required.
+      | sidanusp@gmail.com|            | Password is required.
+
+
+
 

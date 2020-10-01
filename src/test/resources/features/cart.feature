@@ -1,23 +1,31 @@
 Feature: Como usuario quiero poder realizar compras en el sitio
 
-  @Shop
-  Scenario: El cliente realiza una compra en el sitio
-    Given El cliente se encuentra en la página de Inicio
-    When el cliente hace click en el botón DRESSES
-    Then Se redirecciona a la pantalla DRESSES
+  @Cart
+  Scenario: El cliente finaliza una compra en el sitio
+    Given El cliente se encuentra en la página de SHOPPING-CART
+    When el cliente hace click en el boton Proceed to Checkout
+    Then se redirecciona a la pantalla AUTHENTICATION
 
-    When el cliente hace click en el botón Casual Dresses
-    Then Se redirecciona a la pantalla Casual Dresses
+    When El cliente ingresa su email: sidanusp@gmail.com
+    And  El cliente ingresa su contraseña: 24680
+    And  el cliente hace click en el boton Sign In
+    Then se redirecciona a la pantalla ADDRESSES
+    
+    When el cliente hace click en el boton Proceed to Checkout
+    Then  se redirecciona a la pantalla SHIPPING
 
-    When el cliente hace click en el primer item
-    Then Se redirecciona a la pantalla detalle del Vestido
+    When el cliente hace click en el check Terms of Service
+    And el cliente hace click en el boton Proceed to Checkout
+    Then se redirecciona a la pantalla PAYMENTS
+
+    When el cliente hace click en el boton Pay by Bank Wire
+    Then se redirecciona a la pantalla BANK-WIRE PAYMENT
+
+    When el cliente hace click en el botón I COMFIRM
+    Then se redirecciona a la pantalla ORDER CONFIRMATION
 
 
 
-    When el cliente hace click en el botón Add To Cart
-    And Se redirecciona a la pantalla Product Successfully added
-    And el cliente hace click en el botón de Proceed To Checkout
-    Then Se redirecciona a la pantalla SHOPPING-CART
 
 
 

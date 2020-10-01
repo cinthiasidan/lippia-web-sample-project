@@ -4,45 +4,32 @@ import com.crowdar.core.Injector;
 import com.crowdar.core.PageSteps;
 import com.crowdar.examples.pages.ShopHomePage;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-public class LoginSteps extends PageSteps {
+public class ShopSteps extends PageSteps {
 
 
-    @Given("El cliente se encuentra en la página de Inicio")
-    public void elClienteSeEncuentraEnLaPáginaDeInicio() {
-        Injector._page(ShopHomePage.class).go();
-        Injector._page(ShopHomePage.class).verifyIndex();
-    }
 
-    @When("El cliente hace click en el botón (.*)")
-    public void elClienteHaceClickEnElBotónSignIn(String button) {
-        Injector._page(ShopHomePage.class).clickButton(button);
-    }
-
-    @Then("Se redirecciona a la página de (.*)")
-    public void seRedireccionaALaPáginaDeLogin(String pantalla) {
-        Injector._page(ShopHomePage.class).redirectScreen(pantalla);
+    @Then("Se redirecciona a la pantalla (.*)")
+    public void seRedireccionaALaPantallaDRESSES(String pantalla) {
+        Injector._page(ShopHomePage.class).redirectShopScreen(pantalla);
     }
 
 
-    @When("El cliente ingresa su email: (.*)")
-    public void elClienteIngresaSuEmailSidanuspGmailCom(String email) {
-        Injector._page(ShopHomePage.class).completeEmail(email);
-    }
-
-    @And("El cliente ingresa su contraseña: (.*)")
-    public void elClienteIngresaSuContraseña(String pass) {
-        Injector._page(ShopHomePage.class).completePass(pass);
+    @When("el cliente hace click en el primer item")
+    public void elClienteHaceClickEnElPrimerItem() {
+        Injector._page(ShopHomePage.class).clickDressItem();
     }
 
 
 
 
-    @Then("Se muestra el mensaje (.*)")
-    public void seMuestraElMensajeMensaje(String message) {
-        Injector._page(ShopHomePage.class).verifyMessage(message);
+    @And("el cliente hace click en el botón (.*)")
+    public void elClienteHaceClickEnElBotónAddToCard(String button) {
+        Injector._page(ShopHomePage.class).clickShopButton(button);
     }
+
+
+
 }

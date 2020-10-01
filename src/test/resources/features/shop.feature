@@ -1,28 +1,27 @@
-Feature: Como usuario quiero ingresar mis credenciales para poder acceder al sitio de compras
+Feature: Como usuario quiero poder realizar compras en el sitio
 
-  @Login
-  Scenario: El cliente inicia sesión en el sitio de compras
+  @Shop
+  Scenario: El cliente realiza una compra en el sitio
     Given El cliente se encuentra en la página de Inicio
-    When El cliente hace click en el botón Sign In
-    Then Se redirecciona a la página de Login
+    When el cliente hace click en el botón DRESSES
+    Then Se redirecciona a la pantalla DRESSES
+
+    When el cliente hace click en el botón Casual Dresses
+    Then Se redirecciona a la pantalla Casual Dresses
+
+    When el cliente hace click en el primer item
+    Then Se redirecciona a la pantalla detalle del Vestido
 
 
-    When El cliente ingresa su email: sidanusp@gmail.com
-    And  El cliente ingresa su contraseña: 24680
-    And  El cliente hace click en el botón Sign In
-    Then Se redirecciona a la página de My Account
 
-  @Login
-  Scenario: El cliente intenta iniciar sesión en el sitio de compras
-    Given El cliente se encuentra en la página de Inicio
-    When El cliente hace click en el botón Sign In
-    Then Se redirecciona a la página de Login
+    When el cliente hace click en el botón Add To Cart
+    And Se redirecciona a la pantalla Product Successfully added
+    And el cliente hace click en el botón de Proceed To Checkout
+    Then Se redirecciona a la pantalla SHOPPING-CART
 
 
-    When El cliente ingresa su email: sidan@gmail.com
-    And  El cliente ingresa su contraseña: 12345678
-    And  El cliente hace click en el botón Sign In
-    Then Se muestra el mensaje Authentication failed
+
+
 
 
 

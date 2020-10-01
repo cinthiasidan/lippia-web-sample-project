@@ -4,11 +4,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 
-public class ShopHomePage extends PageBaseShop {
+public class LoginHomePage extends PageBaseShop {
 
 
 
-    public ShopHomePage(RemoteWebDriver driver) {
+    public LoginHomePage(RemoteWebDriver driver) {
         super(driver);
         this.url = "";
     }
@@ -80,9 +80,32 @@ public class ShopHomePage extends PageBaseShop {
     }
 
     public void verifyMessage(String message){
-        Assert.assertEquals(getWebElement(By.cssSelector(TEXT_LI_CSS_SELECTOR)).getText(), "El mensaje no es visible" );
+        switch (message){
+            case "Authentication failed":
+                authMessage();
+                break;
+            case "An email address required.":
+                emailReqMessage();
+                break;
+            case "Password is required.":
+                passReqMessage();
+                break;
+        }
     }
 
+
+    public void authMessage(){
+        waitForElementVisibility(By.cssSelector(TEXT_LI_CSS_SELECTOR));
+        Assert.assertEquals(getWebElement(By.cssSelector(TEXT_LI_CSS_SELECTOR)).getText(), "Authentication failed" );
+    }
+
+    public void emailReqMessage(){
+        Assert.assertEquals(getWebElement(By.cssSelector(TEXT_LI_CSS_SELECTOR)).getText(), "An email address required." );
+    }
+
+    public void passReqMessage(){
+        Assert.assertEquals(getWebElement(By.cssSelector(TEXT_LI_CSS_SELECTOR)).getText(), "Password is required." );
+    }
 
 
 

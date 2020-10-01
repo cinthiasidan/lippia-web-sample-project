@@ -16,7 +16,7 @@
     <properties>
         <crowd.project.name>Lippia-web-example-project</crowd.project.name>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <crowdar.cucumber.filter>@Login</crowdar.cucumber.filter>
+        <crowdar.cucumber.filter>@Shop</crowdar.cucumber.filter>
         <cucumber.runner>testng.xml</cucumber.runner>
         <crowdar.driverHub></crowdar.driverHub>
         <crowdar.projectType>WEB_CHROME</crowdar.projectType>
@@ -91,6 +91,31 @@
             <artifactId>core</artifactId>
             <version>3.1.2.2</version>
         </dependency>
+         <dependency>
+             <groupId>org.seleniumhq.selenium</groupId>
+             <artifactId>selenium-remote-driver</artifactId>
+             <version>3.141.59</version>
+         </dependency>
+         <dependency>
+             <groupId>org.seleniumhq.selenium</groupId>
+             <artifactId>selenium-api</artifactId>
+             <version>3.141.59</version>
+         </dependency>
+         <dependency>
+             <groupId>org.seleniumhq.selenium</groupId>
+             <artifactId>selenium-server</artifactId>
+             <version>3.141.59</version>
+         </dependency>
+         <dependency>
+             <groupId>org.seleniumhq.selenium</groupId>
+             <artifactId>selenium-support</artifactId>
+             <version>3.141.59</version>
+         </dependency>
+         <dependency>
+             <groupId>org.testng</groupId>
+             <artifactId>testng</artifactId>
+             <version>6.14.3</version>
+         </dependency>
      </dependencies>
     <build>
         <filters>

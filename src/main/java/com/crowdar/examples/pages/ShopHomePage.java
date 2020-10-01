@@ -4,84 +4,116 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 
-public class LoginHomePage extends PageBaseShop {
+public class ShopHomePage extends PageBaseShop {
 
 
 
-    public LoginHomePage(RemoteWebDriver driver) {
+    public ShopHomePage(RemoteWebDriver driver) {
         super(driver);
         this.url = "";
     }
 
-    private final String BUTTON_SIGNIN_CSS_SELECTOR = "#header > div.nav > div > div > nav > div.header_user_info > a";
-    private final String INPUT_EMAIL_ID = "email";
-    private final String INPUT_PASS_ID = "passwd";
-    private final String BUTTON_SIGNIN_ID = "SubmitLogin";
-    private final String TITLE_H1_CSS_SELECTOR ="#center_column > h1";
-    private final String SLIDER_INDEX_ID = "slider_row";
-    private final String FORM_LOGIN_ID = "login_form";
-    private final String TEXT_LI_CSS_SELECTOR = "#center_column > div.alert.alert-danger > ol > li";
+    private final String BUTTON_DRESSES_CSS_SELECTOR= "#block_top_menu > ul > li:nth-child(2) > a";
+    private final String SPAN_DRESSES_CSS_SELECTOR= "#center_column > div.content_scene_cat > div > div > span";
+    private final String LINK_CASUALDRESSES_CSS_SELECTOR= "#subcategories > ul > li:nth-child(1) > div.subcategory-image > a";
+    private final String ITEM_DRESS_CSS_SELECTOR= "#center_column > ul > li > div > div.left-block > div > a.product_img_link";
+    private final String IMAGEN_DETALLE_ID="bigpic";
+    private final String BUTTON_ADD_TO_CART_XPATH="//*[@id=\"add_to_cart\"]/button/span";
+    private final String ICON_SUCCESSFULLY_CSS_SELECTOR="#layer_cart > div.clearfix > div.layer_cart_product.col-xs-12.col-md-6 > h2 > i";
+    private final String BUTTON_PROCEED_CHECKOUT_CSS_SELECTOR="#layer_cart > div.clearfix > div.layer_cart_cart.col-xs-12.col-md-6 > div.button-container > a";
+    private final String H1_TITLE_CART_ID="cart_title";
+
 
     public void go() {
         navigateToCompleteURL();
     }
 
-    public void verifyIndex(){
-        Assert.assertTrue(isElementPresentAndDisplayed(By.id(SLIDER_INDEX_ID)),  "El elemento no es visible");
-    }
-
-    public void clickButton(String button){
+    public void clickShopButton(String button){
         switch (button){
-            case "Sign In":
-                loginButtonClick();
+            case "DRESSES":
+                dressesButtonClick();
+                break;
+            case "Casual Dresses":
+                casualDressesButtonClick();
+                break;
+            case "Add To Cart":
+                cartButtonClick();
+                break;
+            case "Proceed To Checkout":
+                checkoutButtonClick();
                 break;
         }
     }
 
-    public void loginButtonClick(){
-
-        if(isElementPresentAndDisplayed(By.id(FORM_LOGIN_ID))){
-            clickElement(By.id(BUTTON_SIGNIN_ID));
-        }
-
-        if(isElementPresentAndDisplayed(By.id(SLIDER_INDEX_ID))){
-            clickElement(By.cssSelector(BUTTON_SIGNIN_CSS_SELECTOR));
-        }
-    }
-    public void completeEmail(String email){
-        completeField(By.id(INPUT_EMAIL_ID), email);
+    public void dressesButtonClick(){
+        clickElement(By.cssSelector(BUTTON_DRESSES_CSS_SELECTOR));
     }
 
-    public void completePass(String pass){
-        completeField(By.id(INPUT_PASS_ID), pass);
+    public void casualDressesButtonClick(){
+        waitForElementVisibility(By.cssSelector(LINK_CASUALDRESSES_CSS_SELECTOR));
+        clickElement(By.cssSelector(LINK_CASUALDRESSES_CSS_SELECTOR));
     }
 
-    public void clickSignInButton2(){
-        clickElement(By.id(BUTTON_SIGNIN_ID));
+    public void cartButtonClick(){
+        waitForElementClickable(By.xpath(BUTTON_ADD_TO_CART_XPATH));
+        clickElement(By.xpath(BUTTON_ADD_TO_CART_XPATH));
+
     }
 
-    public void redirectScreen(String pantalla){
+    public void checkoutButtonClick(){
+        clickElement(By.cssSelector(BUTTON_PROCEED_CHECKOUT_CSS_SELECTOR));
+
+    }
+
+    public void redirectShopScreen(String pantalla){
         switch (pantalla){
-            case "Login":
-                verifyLoginScreen();
+            case "DRESSES":
+                verifyScreenDresses();
                 break;
-            case "My Account":
-                verifyHome();
+            case "Casual Dresses":
+                verifyScreenCasualDresses();
+                break;
+            case "detalle del Vestido":
+                verifyDetailScreen();
+                break;
+            case "Product Successfully added":
+                verifySuccessfullyScreen();
+                break;
+            case "SHOPPING-CART":
+                verifyCartScreen();
                 break;
         }
     }
 
-    public void verifyLoginScreen(){
-        Assert.assertEquals(getWebElement(By.cssSelector(TITLE_H1_CSS_SELECTOR)).getText(),"AUTHENTICATION");
+    public void verifyScreenDresses(){
+        Assert.assertEquals(getWebElement(By.cssSelector(SPAN_DRESSES_CSS_SELECTOR)).getText(), "Dresses");
     }
 
-    public void verifyHome(){
-        Assert.assertEquals(getWebElement(By.cssSelector(TITLE_H1_CSS_SELECTOR)).getText(),"MY ACCOUNT");;
+    public void verifyScreenCasualDresses(){
+        Assert.assertEquals(getWebElement(By.cssSelector(SPAN_DRESSES_CSS_SELECTOR)).getText(), "Casual Dresses");
     }
 
-    public void verifyMessage(String message){
-        Assert.assertEquals(getWebElement(By.cssSelector(TEXT_LI_CSS_SELECTOR)).getText(), "El mensaje no es visible" );
+    public void clickDressItem(){
+        waitForElementVisibility(By.cssSelector(ITEM_DRESS_CSS_SELECTOR));
+        clickElement(By.cssSelector(ITEM_DRESS_CSS_SELECTOR));
     }
+
+    public void verifyDetailScreen(){
+        isElementPresentAndDisplayed(By.id(IMAGEN_DETALLE_ID));
+    }
+
+    public void verifySuccessfullyScreen(){
+        waitForElementVisibility(By.cssSelector(ICON_SUCCESSFULLY_CSS_SELECTOR));
+        Assert.assertTrue(isElementPresentAndDisplayed(By.cssSelector(ICON_SUCCESSFULLY_CSS_SELECTOR)), "El mensaje no se desplego");
+    }
+
+    public void verifyCartScreen(){
+        waitForElementVisibility(By.id(H1_TITLE_CART_ID));
+        Assert.assertTrue(isElementPresentAndDisplayed(By.id(H1_TITLE_CART_ID)), "El titulo del cart no aparece");
+    }
+
+
+
 
 
 

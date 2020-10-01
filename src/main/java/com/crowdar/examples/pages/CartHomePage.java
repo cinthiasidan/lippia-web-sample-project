@@ -4,111 +4,135 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 
-public class ShopHomePage extends PageBaseShop {
+public class CartHomePage extends PageBaseShop {
 
 
 
-    public ShopHomePage(RemoteWebDriver driver) {
+    public CartHomePage(RemoteWebDriver driver) {
         super(driver);
         this.url = "";
     }
 
-    private final String BUTTON_DRESSES_CSS_SELECTOR= "#block_top_menu > ul > li:nth-child(2) > a";
-    private final String SPAN_DRESSES_CSS_SELECTOR= "#center_column > div.content_scene_cat > div > div > span";
-    private final String LINK_CASUALDRESSES_CSS_SELECTOR= "#subcategories > ul > li:nth-child(1) > div.subcategory-image > a";
-    private final String ITEM_DRESS_CSS_SELECTOR= "#center_column > ul > li > div > div.left-block > div > a.product_img_link > img";
-    private final String IMAGEN_DETALLE_ID="bigpic";
-    private final String BUTTON_ADD_TO_CART_CSS_SELECTOR="#add_to_cart > button > span";
-    private final String ICON_SUCCESSFULLY_CSS_SELECTOR="#layer_cart > div.clearfix > div.layer_cart_product.col-xs-12.col-md-6 > h2 > i";
-    private final String BUTTON_PROCEED_CHECKOUT_CSS_SELECTOR="#layer_cart > div.clearfix > div.layer_cart_cart.col-xs-12.col-md-6 > div.button-container > a";
+
     private final String H1_TITLE_CART_ID="cart_title";
+    private final String TABLE_DETAIL_ID="cart_summary";
+    private final String BUTTON_PROCEED_SUMMARY_CSS_SELECTOR="#center_column > p.cart_navigation.clearfix > a.button.btn.btn-default.standard-checkout.button-medium > span";
+    private final String FORM_LOGIN_CART_ID="login_form";
+    private final String BUTTON_SIGNIN_CART_CSS_SELECTOR="#SubmitLogin > span";
+    private final String H1_ADDRESSES_CSS_SELECTOR="#center_column > h1";
+    private final String BUTTON_PROCEED_ADDRESS_CSS_SELECTOR="#center_column > form > p > button > span";
+    private final String FORM_SHIPPING_ID="form";
+    private final String CHK_TERMS_SERVICE_ID="cgv";
+    private final String BUTTON_PROCEED_SHIPPING_CSS_SELECTOR="#form > p > button";
+    private final String BUTTON_BANKWIRE_CSS_SELECTOR="#HOOK_PAYMENT > div:nth-child(1) > div > p > a";
+    private final String BUTTON_CHEKE_CSS_SELECTOR="#HOOK_PAYMENT > div:nth-child(2) > div > p > a";
+    private final String BUTTON_I_COMFIRM_CSS_SELECTOR="#cart_navigation > button";
+    private final String TITULO_H3_BANK_CSS_SELECTOR="#center_column > form > div > h3";
 
 
     public void go() {
         navigateToCompleteURL();
     }
 
+    public void verifyScreenCart(){
+        Assert.assertTrue(isElementPresentAndDisplayed(By.id(H1_TITLE_CART_ID)));
+    }
+
     public void clickShopButton(String button){
         switch (button){
-            case "DRESSES":
-                dressesButtonClick();
+            case "Proceed to Checkout":
+                proceedButtonClick();
                 break;
-            case "Casual Dresses":
-                casualDressesButtonClick();
+            case "Pay by Bank Wire":
+                bankWireButtonClick();
                 break;
-            case "Add To Cart":
-                cartButtonClick();
+            case "I COMFIRM":
+                iComfirmButtonClick();
                 break;
-            case "Proceed To Checkout":
-                checkoutButtonClick();
+            case "Sign In":
+                SigninButtonClick();
                 break;
+
         }
     }
 
-    public void dressesButtonClick(){
-        clickElement(By.cssSelector(BUTTON_DRESSES_CSS_SELECTOR));
-    }
-
-    public void casualDressesButtonClick(){
-        waitForElementVisibility(By.cssSelector(LINK_CASUALDRESSES_CSS_SELECTOR));
-        clickElement(By.cssSelector(LINK_CASUALDRESSES_CSS_SELECTOR));
-    }
-
-    public void cartButtonClick(){
-        clickElement(By.cssSelector(BUTTON_ADD_TO_CART_CSS_SELECTOR));
-
-    }
-
-    public void checkoutButtonClick(){
-        clickElement(By.cssSelector(BUTTON_PROCEED_CHECKOUT_CSS_SELECTOR));
+    public void proceedButtonClick(){
+        if(isElementPresentAndDisplayed(By.id(TABLE_DETAIL_ID))){
+            clickElement(By.cssSelector(BUTTON_PROCEED_SUMMARY_CSS_SELECTOR));
+        }
+        if(isElementPresentAndDisplayed(By.cssSelector(H1_ADDRESSES_CSS_SELECTOR))){
+            clickElement(By.cssSelector(BUTTON_PROCEED_ADDRESS_CSS_SELECTOR));
+        }
+        if(isElementPresentAndDisplayed(By.id(FORM_SHIPPING_ID))){
+            clickElement(By.cssSelector(BUTTON_PROCEED_SHIPPING_CSS_SELECTOR));
+        }
 
     }
+
+    public void chkClick(){
+        clickElement(By.id(CHK_TERMS_SERVICE_ID));
+    }
+
+    public void bankWireButtonClick(){
+        clickElement(By.cssSelector(BUTTON_BANKWIRE_CSS_SELECTOR));
+    }
+
+    public void iComfirmButtonClick(){
+        clickElement(By.cssSelector(BUTTON_I_COMFIRM_CSS_SELECTOR));
+    }
+
+    public void SigninButtonClick(){
+        clickElement(By.cssSelector(BUTTON_SIGNIN_CART_CSS_SELECTOR));
+
+    }
+
 
     public void redirectShopScreen(String pantalla){
         switch (pantalla){
-            case "DRESSES":
-                verifyScreenDresses();
+            case "AUTHENTICATION":
+                verifyScreenAuthentication();
                 break;
-            case "Casual Dresses":
-                verifyScreenCasualDresses();
+            case "ADDRESSES":
+                verifyScreenAddresses();
                 break;
-            case "detalle del Vestido":
-                verifyDetailScreen();
+            case "SHIPPING":
+                verifyScreenShipping();
                 break;
-            case "Product Successfully added":
-                verifySuccessfullyScreen();
+            case "PAYMENTS":
+                verifyScreenPayments();
                 break;
-            case "SHOPPING-CART":
-                verifyCartScreen();
+            case "BANK-WIRE PAYMENT":
+                verifyScreenBankWire();
+                break;
+            case "ORDER CONFIRMATION":
+                verifyScreenConfirmation();
                 break;
         }
     }
 
-    public void verifyScreenDresses(){
-        Assert.assertEquals(getWebElement(By.cssSelector(SPAN_DRESSES_CSS_SELECTOR)).getText(), "Dresses");
+    public void verifyScreenAuthentication(){
+        Assert.assertTrue(isElementPresentAndDisplayed(By.id(FORM_LOGIN_CART_ID)));
     }
 
-    public void verifyScreenCasualDresses(){
-        Assert.assertEquals(getWebElement(By.cssSelector(SPAN_DRESSES_CSS_SELECTOR)).getText(), "Casual Dresses");
+    public void verifyScreenAddresses(){
+        Assert.assertEquals(getWebElement(By.cssSelector(H1_ADDRESSES_CSS_SELECTOR)).getText(), "Addresses");
     }
 
-    public void clickDressItem(){
-        waitForElementVisibility(By.cssSelector(ITEM_DRESS_CSS_SELECTOR));
-        clickElement(By.cssSelector(ITEM_DRESS_CSS_SELECTOR));
+    public void verifyScreenShipping(){
+        Assert.assertTrue(isElementPresentAndDisplayed(By.id(FORM_SHIPPING_ID)));
     }
 
-    public void verifyDetailScreen(){
-        isElementPresentAndDisplayed(By.id(IMAGEN_DETALLE_ID));
+    public void verifyScreenPayments(){
+        Assert.assertTrue(isElementPresentAndDisplayed(By.cssSelector(BUTTON_BANKWIRE_CSS_SELECTOR)), "No se encuentra el boton Bank wire");
+        Assert.assertTrue(isElementPresentAndDisplayed(By.cssSelector(BUTTON_CHEKE_CSS_SELECTOR)), "No se encuentra el boton Cheke");
     }
 
-    public void verifySuccessfullyScreen(){
-        waitForElementVisibility(By.cssSelector(ICON_SUCCESSFULLY_CSS_SELECTOR));
-        Assert.assertTrue(isElementPresentAndDisplayed(By.cssSelector(ICON_SUCCESSFULLY_CSS_SELECTOR)), "El mensaje no se desplego");
+    public void verifyScreenConfirmation(){
+        Assert.assertEquals(getWebElement(By.cssSelector(H1_ADDRESSES_CSS_SELECTOR)).getText(), "    Order summary");
     }
 
-    public void verifyCartScreen(){
-        waitForElementVisibility(By.id(H1_TITLE_CART_ID));
-        Assert.assertTrue(isElementPresentAndDisplayed(By.id(H1_TITLE_CART_ID)), "El titulo del cart no aparece");
+    public void verifyScreenBankWire(){
+        Assert.assertTrue(isElementPresentAndDisplayed(By.cssSelector(TITULO_H3_BANK_CSS_SELECTOR)), "No se encuentra el titulo");
     }
 
 
